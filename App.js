@@ -1,15 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Platform, StatusBar, SafeAreaView } from 'react-native';
 import { Terminal } from './components/Terminal'
 
 export default function App() {
   return (
-    <View>
+    <SafeAreaView style={styles.AndroidSafeArea}>
       <Terminal/>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  
+    AndroidSafeArea: {
+      flex: 1,
+      backgroundColor:'#FFE6CF',
+      paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+    }
 });

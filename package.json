@@ -13,6 +13,7 @@
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
+    "react-native-dropdown-select-list": "^2.0.5",
     "react-native-usb-serialport-for-android": "github:SHO-Companies/react-native-usb-serialport-for-android",
     "react-native-usbserial": "^1.0.1"
   },

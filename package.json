@@ -9,13 +9,15 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@react-navigation/material-bottom-tabs": "^6.2.28",
     "expo": "~50.0.14",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
+    "react-native-dropdown-picker": "^4.0.9",
     "react-native-dropdown-select-list": "^2.0.5",
-    "react-native-usb-serialport-for-android": "github:SHO-Companies/react-native-usb-serialport-for-android",
-    "react-native-usbserial": "^1.0.1"
+    "react-native-element-dropdown": "^2.10.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

@@ -6,9 +6,9 @@ import Header from "./components/Header";
 export default function App() {
     return (
         <SafeAreaView style={styles.AndroidSafeArea}>
-            {/* <Terminal /> */}
-            <Header />
-            <RequestDispaly />
+            <Terminal />
+            {/* <Header />
+            <RequestDispaly /> */}
         </SafeAreaView>
     );
 }

@@ -4,6 +4,7 @@ import RequestDisplay from "./RequestDisplay";
 import React from "react";
 import { Image } from "react-native";
 import { Terminal } from "./Terminal";
+import SingleRequest from "./SingleRequest";
 
 const Tab = createBottomTabNavigator();
 
@@ -53,7 +54,7 @@ const Footer = () => {
 
                 <Tab.Screen
                     name="Help"
-                    component={RequestDisplay}
+                    component={SingleRequest}
                     options={{
                         headerShown: false,
                         tabBarShowLabel: false,

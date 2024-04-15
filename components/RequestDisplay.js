@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Text, StyleSheet, TextInput, View } from "react-native";
-import { SelectList } from "react-native-dropdown-select-list";
 import DropDownPicker from "react-native-dropdown-picker";
 
 const RequestDisplay = () => {

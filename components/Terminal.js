@@ -1,5 +1,4 @@
 import { View, Text, TouchableOpacity, TextInput, Keyboard } from "react-native";
-import Header from './Header'
 import CheckBox from "expo-checkbox";
 import { useState } from "react";
 import * as Network from 'expo-network';
@@ -15,24 +14,27 @@ export const Terminal = ()=>{
     const [pres,setPres] = useState("")
     const [ip,setIP] = useState(null)
     const [error,setError] = useState(null);
+    var form = new FormData();
     const getIp = async()=>{
         const x = await Network.getIpAddressAsync();
         console.log(x)
         setIP(x)
     }
     getIp()
-    const fet = async(form)=>{
+    const fet = async()=>{
+        console.log(form)
         try{
-            const res = await fetch(`${ip}/endpoint`,{
+            const res = await fetch(`http://192.168.8.242/endpoint`,{
                 method:'POST',
                 body:form
             });
         }catch(e){
             setError("Please connect your lora with your mobile's hotspot...");
+            console.log(e)
         }
     }
     const handleSubmit = ()=>{
-        var js = []
+        var js ={}
         if(medicine[0]){
             js.medicine = medicine[1]
             if(pres==""){
@@ -42,13 +44,13 @@ export const Terminal = ()=>{
             js.pres = pres
         }
         if(food[0])js.food=food[1]
-        if(water[0])js.water = water[0]
-        if(emergency[0])js.emergency = emergency[0]
+        if(water[0])js.water = water[1]
+        if(emergency[0])js.emergency = emergency[1]
         
-        var form = new FormData();
+        
         var dat = JSON.stringify(js)
-        form.append(dat)
-        fet(form)
+        form.append("data",dat)
+        fet()
     }
     const ch = (x,setX)=>{
         setX([!x[0],(!x[0])?x[1]:0])
@@ -57,14 +59,13 @@ export const Terminal = ()=>{
         setX([x[0],x[1]+v])
     }
     return (
-        <>
-         <Header/>
-         {(error!=null)?<View style={{position:'absolute',width:350,top:120, zIndex:20, backgroundColor:'white',borderWidth:3,borderColor:'red',padding:10,paddingHorizontal:30,marginHorizontal:20}}>
+        <View style={{backgroundColor:"#FFE6CF",flex:1}}>
+         {(error!=null)?<View style={{position:'absolute',width:350,top:0, zIndex:20, backgroundColor:'white',borderWidth:3,borderColor:'red',padding:10,paddingHorizontal:30,marginHorizontal:20}}>
             <Text style={{fontSize:20,color:'red',fontWeight:'700'}}>Error</Text>
             <AntDesign onPress={()=>{setError(null)}} name="closecircle" style={{marginLeft:260,position:'relative',top:-25}} size={17} color="#252A3E" />
             <Text>{error}</Text>
          </View>:<></>}
-         <View style={{display:(useKeyboardVisible())?"none":'flex',flex:0.8,justifyContent:'space-between',borderWidth:2,margin:35,backgroundColor:'white',borderRadius:20,padding:20}}>
+         <View style={{display:(useKeyboardVisible())?"none":'flex',flex:0.9,justifyContent:'space-between',borderWidth:2,margin:35,backgroundColor:'white',borderRadius:20,padding:20}}>
             <Text style={{fontSize:20,fontWeight:'600',color:'#F9973E',textAlign:"center",marginBottom:30}}>Requesting Form</Text>
             <View style={{flex:0.2,flexDirection:'row',justifyContent:'space-between',margin:20}}>
                 <View style={{flex:1,flexDirection:'row'}}>
@@ -143,6 +144,6 @@ export const Terminal = ()=>{
                             />
                             <TouchableOpacity onPress={()=>{Keyboard.dismiss()}} style={{marginTop:15,borderWidth:1,width:50,marginLeft:300,padding:4,borderRadius:9,backgroundColor:'#F9973E'}}><Text style={{color:'white',textAlign:'center'}}>Save</Text></TouchableOpacity>
                         </> :<></>}
-        </>
+        </View>
     );
 }

@@ -5,6 +5,7 @@ import React from "react";
 import { Image } from "react-native";
 import { Terminal } from "./Terminal";
 import SingleRequest from "./SingleRequest";
+import Login from "./Login";
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +55,7 @@ const Footer = () => {
 
                 <Tab.Screen
                     name="Help"
-                    component={SingleRequest}
+                    component={Login}
                     options={{
                         headerShown: false,
                         tabBarShowLabel: false,

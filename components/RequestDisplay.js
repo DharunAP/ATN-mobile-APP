@@ -85,7 +85,7 @@ const RequestDisplay = () => {
                                     marginRight: 60,
                                 }}
                             >
-                                Gojo Satoru
+                                Deepak Prakash
                             </Text>
                             <View
                                 style={{

@@ -1,21 +1,22 @@
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import RequestDisplay from "./RequestDisplay";
 import React from "react";
 import { Image } from "react-native";
 import { Terminal } from "./Terminal";
-import SingleRequest from "./SingleRequest";
 import Login from "./Login";
+import { NavigationContainer } from "@react-navigation/native";
+import StackNav from "../Navigator/StackNav";
+import { TerminalStack } from "../Navigator/StackNav";
 
 const Tab = createBottomTabNavigator();
 
 const Footer = () => {
     return (
         <NavigationContainer>
-            <Tab.Navigator initialRouteName="Home">
+            <Tab.Navigator initialRouteName="hello">
                 <Tab.Screen
-                    name="Home"
-                    component={RequestDisplay}
+                    name="hello"
+                    component={StackNav}
                     options={{
                         headerShown: false,
                         tabBarShowLabel: false,
@@ -35,7 +36,7 @@ const Footer = () => {
 
                 <Tab.Screen
                     name="terminal"
-                    component={Terminal}
+                    component={TerminalStack}
                     options={{
                         headerShown: false,
                         tabBarShowLabel: false,

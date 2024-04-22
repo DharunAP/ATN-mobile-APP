@@ -1,9 +1,11 @@
 import React from "react";
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import Logo from "../assets/ATN-logo-2.png";
 import profile from "../assets/profile.png";
+import { useNavigation } from "@react-navigation/native";
 
 const Header = () => {
+    const nav = useNavigation();
     return (
         <View style={{ height: 63, marginBottom: 5 }}>
             <View
@@ -15,7 +17,7 @@ const Header = () => {
                 }}
             >
                 <Image source={Logo} style={styles.logo_img} />
-                <Image source={profile} style={styles.pro} />
+                <TouchableOpacity onPress={()=>{nav.navigate('Profile')}}><Image source={profile} style={styles.pro} /></TouchableOpacity>
             </View>
         </View>
     );

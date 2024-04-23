@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import {useKeyboardVisible} from './keyboardVisible'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const DataInp = ({ip})=>{
     console.log(ip)
@@ -13,9 +14,24 @@ export const DataInp = ({ip})=>{
     const [medicine, setMedicine] = useState([false,0])
     const [pres,setPres] = useState("")
     const [error,setError] = useState(null)
+    const [value,setValue] = useState({})
     var form = new FormData();
+    const getData = async (key) => {
+        try {
+            let x = await AsyncStorage.getItem(key);
+            if (x !== null) {
+                setValue(JSON.parse(x));
+            } else {
+                console.log('No data found with the key:', key);
+            }
+        } catch (e) {
+            console.error('Error retrieving data:', e);
+        }
+    };
     const fet = async()=>{
         console.log(form)
+        getData('User')
+        form.append('i',value.id)
         try{
             const res = await fetch(`http://${ip}/endpoint`,{
                 method:'POST',
@@ -30,16 +46,16 @@ export const DataInp = ({ip})=>{
     const handleSubmit = ()=>{
         var js ={}
         if(medicine[0]){
-            js.medicine = medicine[1]
+            js.m = medicine[1]
             if(pres==""){
                 setError("Please give prescriptions to the medicine in the bottom...")
                 return
             }
-            js.pres = pres
+            js.p = pres
         }
-        if(food[0])js.food=food[1]
-        if(water[0])js.water = water[1]
-        if(emergency[0])js.emergency = emergency[1]
+        if(food[0])js.f =food[1]
+        if(water[0])js.w = water[1]
+        if(emergency[0])js.e = emergency[1]
         
         
         var dat = JSON.stringify(js)
@@ -116,7 +132,7 @@ export const DataInp = ({ip})=>{
                     onValueChange={()=>ch(medicine,setMedicine)}
                     // style={styles.checkbox}
                 />
-                <Text style={{paddingLeft:10,fontSize:17}}>Madicine</Text>
+                <Text style={{paddingLeft:10,fontSize:17}}>Medicine</Text>
                 </View>
                 <View style={{flex:1,flexDirection:'row'}}>
                 <TouchableOpacity disabled={!medicine[0]} onPress={()=>{amt(medicine,setMedicine,-1)}}><FontAwesome5 name="minus" size={15} style={{marginLeft:30,paddingTop:5}} color="black" /></TouchableOpacity>

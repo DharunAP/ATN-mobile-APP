@@ -6,15 +6,15 @@ import Footer from "./components/Footer";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
-    const storeData = async (key, value) => {
-        try {
-          await AsyncStorage.setItem(key, JSON.stringify(value));
-          console.log('Data saved successfully!');
-        } catch (e) {
-          console.error('Error saving data:', e);
-        }
-      };
-      storeData('User',{id:'wqeer4321sd',name:'Deepa',email:'deepa.deva@gmail.com',number:'9871234560',address:'123,XYZ Street Pudukottai, TN'})
+    // const storeData = async (key, value) => {
+    //     try {
+    //       await AsyncStorage.setItem(key, JSON.stringify(value));
+    //       console.log('Data saved successfully!');
+    //     } catch (e) {
+    //       console.error('Error saving data:', e);
+    //     }
+    //   };
+    //   storeData('User',{id:'wqeer4321sd',name:'Deepa',email:'deepa.deva@gmail.com',number:'9871234560',address:'123,XYZ Street Pudukottai, TN'})
     return (
         <SafeAreaView style={styles.AndroidSafeArea}>
             <Footer />

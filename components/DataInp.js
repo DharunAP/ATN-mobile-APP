@@ -7,7 +7,7 @@ import {useKeyboardVisible} from './keyboardVisible'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const DataInp = ({ip})=>{
-    console.log(ip)
+    console.log('----------------------------',ip)
     const [food,setFood] = useState([false,0])
     const [water,setWater] = useState([false,0])
     const [emergency,setEmergency] = useState([false,0])
@@ -33,13 +33,14 @@ export const DataInp = ({ip})=>{
         getData('User')
         form.append('i',value.id)
         try{
+            console.log(ip)
             const res = await fetch(`http://${ip}/endpoint`,{
                 method:'POST',
                 body:form
             });
             
         }catch(e){
-            setError("Please connect your lora with your mobile's hotspot...");
+            setError("Please connect your lora wsith your mobile's hotspot...");
             console.log(e)
         }
     }

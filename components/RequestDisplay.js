@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import { Text, StyleSheet, TextInput, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+    Text,
+    StyleSheet,
+    TextInput,
+    View,
+    TouchableOpacity,
+} from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useNavigation } from "@react-navigation/native";
 
 const RequestDisplay = () => {
-    const [City, setCity] = useState(null);
-    const [selectedValue, setSelectedValue] = useState(null);
+    const [City, setCity] = useState([]);
+    const [selectedValue, setSelectedValue] = useState([]);
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
@@ -13,6 +20,57 @@ const RequestDisplay = () => {
         { label: "Kerala", value: "kerala" },
     ]);
 
+    const fetch_data = async () => {
+        const url = "http://172.16.126.76:8000/user/allRequests";
+        try {
+            console.log(url);
+            const reqData = await fetch(url);
+            const res = await reqData.json();
+            setCity(res);
+        } catch (error) {
+            console.error("Error fetching data from:", url, error);
+        }
+    };
+
+    useEffect(() => {
+        fetch_data();
+    }, []);
+
+    // console.log(City);
+
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            try {
+                if (City.data && City.data.length > 0) {
+                    const userIds = await City.data.map((item) => item.userID);
+                    const userDetPro = await userIds.map((userId) => {
+                        return fetch(
+                            "http://172.16.126.76:8000/user/allUsers",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ userID: userId }),
+                            }
+                        )
+                            .then((response) => response.json())
+                            .then((data) => ({ [userId]: data }));
+                    });
+                    const userDetRes = await Promise.all(userDetPro);
+                    const userDetObj = userDetRes.reduce((acc, curr) => {
+                        return { ...acc, ...curr };
+                    }, {});
+                    setSelectedValue(userDetObj);
+                }
+            } catch (error) {
+                console.error("Error fetching user details:", error);
+            }
+        };
+        fetchUserDetails();
+    }, [City]);
+
+    const nav = useNavigation();
     return (
         <>
             <View style={styles.main_view}>
@@ -59,72 +117,106 @@ const RequestDisplay = () => {
                     </View>
                 </View>
 
-                <View style={{ height: 90, marginBottom: 20 }}>
-                    <View
-                        style={{
-                            flex: 1,
-                            flexDirection: "column",
-                            marginLeft: 20,
-                            marginBottom: 15,
-                            width: 300,
-                            overflow: "hidden",
-                        }}
-                    >
-                        <View
-                            style={{
-                                flex: 1,
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                marginBottom: 5,
+                {City.data &&
+                    Object.entries(City.data).map(([key, val]) => (
+                        <TouchableOpacity
+                            onPress={() => {
+                                nav.navigate("SingleRequest");
                             }}
                         >
-                            <Text
-                                style={{
-                                    fontSize: 17,
-                                    fontWeight: "bold",
-                                    marginRight: 60,
-                                }}
-                            >
-                                Deepak Prakash
-                            </Text>
                             <View
-                                style={{
-                                    flex: 1,
-                                    flexDirection: "row",
-                                    width: 150,
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                }}
+                                style={{ height: 90, marginBottom: 20 }}
+                                key={key}
                             >
-                                <Text style={{ fontSize: 15 }}>
-                                    {" "}
-                                    9634589752
-                                </Text>
                                 <View
                                     style={{
-                                        borderRadius: 100,
-                                        height: 10,
-                                        width: 10,
-                                        backgroundColor: "red",
+                                        flex: 1,
+                                        flexDirection: "column",
+                                        marginLeft: 20,
+                                        marginBottom: 15,
+                                        width: 300,
+                                        overflow: "hidden",
                                     }}
-                                />
+                                >
+                                    <View
+                                        style={{
+                                            flex: 1,
+                                            flexDirection: "row",
+                                            justifyContent: "space-between",
+                                            marginBottom: 5,
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                fontSize: 17,
+                                                fontWeight: "bold",
+                                                marginRight: 60,
+                                            }}
+                                        >
+                                            {selectedValue[val.userID]
+                                                ? selectedValue[val.userID]
+                                                      .fname
+                                                : "Unknown"}
+                                        </Text>
+                                        <View
+                                            style={{
+                                                flex: 1,
+                                                flexDirection: "row",
+                                                width: 150,
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Text style={{ fontSize: 15 }}>
+                                                {" "}
+                                                {selectedValue[val.userID]
+                                                    ? selectedValue[val.userID]
+                                                          .mobile
+                                                    : "Unknown"}
+                                            </Text>
+                                            <View
+                                                style={{
+                                                    borderRadius: 100,
+                                                    height: 10,
+                                                    width: 10,
+                                                    backgroundColor: "red",
+                                                }}
+                                            />
+                                        </View>
+                                    </View>
+
+                                    <View>
+                                        <Text style={{ fontSize: 14 }}>
+                                            Location:{" "}
+                                            {selectedValue[val.userID]
+                                                ? selectedValue[val.userID]
+                                                      .address
+                                                : "Unknown"}
+                                        </Text>
+                                    </View>
+
+                                    <View
+                                        style={{
+                                            flex: 1,
+                                            flexDirection: "row",
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                marginLeft: 5,
+                                                marginRight: 15,
+                                            }}
+                                        >
+                                            {" "}
+                                            Food : {val.data.Food}
+                                        </Text>
+                                        <Text> Water : {val.data.Water}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.dashedLine} />
                             </View>
-                        </View>
-
-                        <View>
-                            <Text style={{ fontSize: 14 }}>
-                                Location: Anna Nagar, Chennai.
-                            </Text>
-                        </View>
-
-                        <View style={{ flex: 1, flexDirection: "row" }}>
-                            <Text>Requires : </Text>
-                            <Text> Rice - 20Kg</Text>
-                            <Text> Water - 10</Text>
-                        </View>
-                    </View>
-                    <View style={styles.dashedLine} />
-                </View>
+                        </TouchableOpacity>
+                    ))}
                 {/* this is the end */}
             </View>
         </>

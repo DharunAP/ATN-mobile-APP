@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Button, DataTable } from "react-native-paper";
 
-const Login = () => {
+export const Login = () => {
     return (
         <View style={styles.main}>
             <View
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Login;
+

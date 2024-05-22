@@ -3,7 +3,7 @@ import RequestDisplay from "./RequestDisplay";
 import React from "react";
 import { Image } from "react-native";
 import { Terminal } from "./Terminal";
-import Login from "./Login";
+import {Login} from "./Login";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNav from "../Navigator/StackNav";
 import { TerminalStack } from "../Navigator/StackNav";

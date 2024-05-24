@@ -1,4 +1,5 @@
 import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
+import { WiFi } from "./components/WiFi";
 import { QR_Code } from "./components/QR_Code";
 import { Terminal } from "./components/Terminal";
 import RequestDispaly from "./components/RequestDisplay";
@@ -19,7 +20,8 @@ export default function App() {
     return (
         <SafeAreaView style={styles.AndroidSafeArea}>
             {/* <Footer /> */}
-            <QR_Code/>
+            {/* <QR_Code/> */}
+            <WiFi/>
         </SafeAreaView>
     );
 }

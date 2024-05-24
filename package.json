@@ -17,8 +17,10 @@
     "@react-navigation/stack": "^6.3.29",
     "expo": "^51.0.8",
     "expo-barcode-scanner": "~13.0.1",
+    "expo-camera": "~15.0.9",
     "expo-checkbox": "^2.7.0",
-    "expo-network": "~5.8.0",
+    "expo-dev-client": "^4.0.14",
+    "expo-location": "~17.0.1",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
     "react-native": "0.73.6",
@@ -30,7 +32,7 @@
     "react-native-paper": "^5.12.3",
     "react-native-usb-serialport-for-android": "github:SHO-Companies/react-native-usb-serialport-for-android",
     "react-native-usbserial": "^1.0.1",
-    "expo-camera": "~15.0.9"
+    "react-native-wifi-reborn": "^4.12.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

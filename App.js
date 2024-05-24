@@ -1,4 +1,6 @@
 import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
+import { WiFi } from "./components/WiFi";
+import { QR_Code } from "./components/QR_Code";
 import { Terminal } from "./components/Terminal";
 import RequestDispaly from "./components/RequestDisplay";
 import Header from "./components/Header";
@@ -17,7 +19,9 @@ export default function App() {
     //   storeData('User',{id:'wqeer4321sd',name:'Deepa',email:'deepa.deva@gmail.com',number:'9871234560',address:'123,XYZ Street Pudukottai, TN'})
     return (
         <SafeAreaView style={styles.AndroidSafeArea}>
-            <Footer />
+            {/* <Footer /> */}
+            {/* <QR_Code/> */}
+            <WiFi/>
         </SafeAreaView>
     );
 }

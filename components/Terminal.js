@@ -24,7 +24,7 @@ export const Terminal = ()=>{
     const EnterIp = ()=>{
         const checkConn= async()=>{
             try{
-                const status = await fetch(`http://${url}/`)
+                const status = await fetch(`http://${ip}/`)
                 // const data = status.json();
                 // setConn(true);
                 console.log(status)
@@ -44,7 +44,7 @@ export const Terminal = ()=>{
         return(
             <View style={styles.ipContainer}>
                 <Text style={{textAlign:'center',paddingBottom:20,marginTop:20, fontWeight:500,justifyContent:'flex-start'}}>Enter the ip in your network device in the below input box</Text>
-                <TextInput onChangeText={(txt)=>url=txt} placeholder="Enter IP in the device" style={{borderWidth:2,height:50,width:200,padding:10}}/>
+                <TextInput onChangeText={(txt)=>{url=txt;setIP4(txt)}} placeholder="Enter IP in the device" style={{borderWidth:2,height:50,width:200,padding:10}}/>
                 <TouchableOpacity onPress={()=>{checkConn()}} style={{borderWidth:2,backgroundColor:'#252A3E',margin:15,paddingHorizontal:10}}>
                     <Text style={{color:'#ffffff'}}>Verify</Text>
                 </TouchableOpacity>

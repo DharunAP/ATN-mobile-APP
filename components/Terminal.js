@@ -56,7 +56,7 @@ export const Terminal = ()=>{
             </View>
         )
     }
-    // return <DataInp/>
-    if(conn) return (<DataInp ip={url}/>)
-    else return EnterIp();
+    return <DataInp/>
+//     if(conn) return (<DataInp ip={url}/>)
+//     else return EnterIp();
 }
